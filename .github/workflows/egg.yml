@@ -13,8 +13,12 @@
         - run: pwd
         - run: npm --version
 
-        - name: 安裝依賴
+        - name: 安裝依賴+打包
           run: npm install
-
-        - name: 項目打包
           run: npm run build
+
+        - name: 部署
+          uses: JamesIves/github-pages-deploy-action@v4
+          with:
+            branch: gh-pages
+            folder: build
