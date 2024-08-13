@@ -1,8 +1,5 @@
-  name: 打包 React 項目
+  name: 構建鏡像並且推送到 Docker Hub
   on: push
-
-  permissions:
-    contents: write
 
   jobs:
     npm-build:
@@ -12,16 +9,15 @@
       steps:
         - name: 讀取倉庫內容
           uses: actions/checkout@v4
-        - run: pwd
-        - run: npm --version
 
-        - name: 安裝依賴+打包
-          run: |
-            npm install
-            npm run build
-
-        - name: 部署
-          uses: JamesIves/github-pages-deploy-action@v4
+        - name: 登錄 DockerHub
+          uses: docker/login-action@v3
           with:
-            branch: gh-pages
-            folder: build
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+        - name: 構建並推送到 Docker Hub
+          uses: docker/build-push-action@v5
+          with:
+            push: true
+            tags: david11yf29/react-app:latest
