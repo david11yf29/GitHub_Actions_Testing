@@ -1,6 +1,8 @@
   name: 打包 React 項目
-
   on: push
+
+  permissions:
+    contents: write
 
   jobs:
     npm-build:
