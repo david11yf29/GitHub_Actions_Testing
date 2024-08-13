@@ -14,8 +14,9 @@
         - run: npm --version
 
         - name: 安裝依賴+打包
-          run: npm install
-          run: npm run build
+          run: |
+            npm install
+            npm run build
 
         - name: 部署
           uses: JamesIves/github-pages-deploy-action@v4
